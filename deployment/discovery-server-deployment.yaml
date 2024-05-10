@@ -30,7 +30,7 @@ kind: Service
 apiVersion: v1
 metadata:
   labels:
-    service: notes-be
+    service: discovery-server
   name: discovery-server
   namespace: bytebusters
 spec:
