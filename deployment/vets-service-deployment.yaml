@@ -1,0 +1,44 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    service: vets-service
+  name: vets-service
+  namespace: bytebusters
+spec:
+  selector:
+    matchLabels:
+      service: vets-service
+  template:
+    metadata:
+      labels:
+        service: vets-service
+    spec:
+      containers:
+        - name: vets-service-container
+          image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-vets-service
+          imagePullPolicy: Always
+          ports:
+            - name: vets-service
+              containerPort: 8081
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    service: vets-service
+  name: vets-service
+  namespace: bytebusters
+spec:
+  ports:
+    - name: vets-service
+      port: 8081
+      targetPort: 8081
+  selector:
+    service: vets-service
+  type: ClusterIP
+
