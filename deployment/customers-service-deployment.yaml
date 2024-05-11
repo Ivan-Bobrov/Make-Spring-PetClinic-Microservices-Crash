@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    service: customers-service
+  name: customers-service
+  namespace: bytebusters
+spec:
+  selector:
+    matchLabels:
+      service: customers-service
+  template:
+    metadata:
+      labels:
+        service: customers-service
+    spec:
+      containers:
+        - name: customers-service-container
+          image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-customers-service:latest
+          imagePullPolicy: Always
+          ports:
+            - name: customers-service
+              containerPort: 8081
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    service: customers-service
+  name: customers-service
+  namespace: bytebusters
+spec:
+  ports:
+    - name: customers-service
+      port: 8081
+      targetPort: 8081
+  selector:
+    service: customers-service
+  type: ClusterIP

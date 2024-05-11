@@ -19,7 +19,7 @@ spec:
         image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-discovery-server
         imagePullPolicy: Always
         ports:
-          - name: discover-server
+          - name: discovery-server
             containerPort: 8761
       imagePullSecrets:
       - name: dockerconfigjson-github-com
@@ -30,7 +30,7 @@ kind: Service
 apiVersion: v1
 metadata:
   labels:
-    service: notes-be
+    service: discovery-server
   name: discovery-server
   namespace: bytebusters
 spec:

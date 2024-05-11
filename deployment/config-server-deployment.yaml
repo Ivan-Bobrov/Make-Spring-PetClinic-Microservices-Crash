@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    service: config-server
+  name: config-server
+  namespace: bytebusters
+spec:
+  selector:
+    matchLabels:
+      service: config-server
+  template:
+    metadata:
+      labels:
+        service: config-server
+    spec:
+      containers:
+        - name: config-server-container
+          image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-config-server:latest
+          imagePullPolicy: Always
+          ports:
+            - name: config-server
+              containerPort: 8888
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    service: config-server
+  name: config-server
+  namespace: bytebusters
+spec:
+  ports:
+    - name: config-server
+      port: 8888
+      targetPort: 8888
+  selector:
+    service: config-server
+  type: ClusterIP

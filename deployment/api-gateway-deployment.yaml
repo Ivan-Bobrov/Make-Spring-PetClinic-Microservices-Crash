@@ -1,0 +1,67 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    service: api-gateway
+  name: api-gateway
+  namespace: bytebusters
+spec:
+  selector:
+    matchLabels:
+      service: api-gateway
+  template:
+    metadata:
+      labels:
+        service: api-gateway
+    spec:
+      containers:
+      - name: api-gateway-container
+        image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-api-gateway
+        imagePullPolicy: Always
+        ports:
+          - name: api-gateway
+            containerPort: 8080
+      imagePullSecrets:
+      - name: dockerconfigjson-github-com
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    service: api-gateway
+  name: api-gateway
+  namespace: bytebusters
+spec:
+  ports:
+    - name: api-gateway
+      port: 8080
+      targetPort: 8080
+  selector:
+    service: api-gateway
+  type: ClusterIP
+
+---
+
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: api-gateway-ingress
+  labels:
+    service: api-gateway
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1 
+  namespace: bytebusters
+spec:
+  rules:
+    - host: hello-world.info 
+      http:
+        paths:
+          - path: /(.*)
+            pathType: ImplementationSpecific 
+            backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 8080

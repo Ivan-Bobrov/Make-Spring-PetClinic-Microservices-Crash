@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    service: visits-service
+  name: visits-service
+  namespace: bytebusters
+spec:
+  selector:
+    matchLabels:
+      service: visits-service
+  template:
+    metadata:
+      labels:
+        service: visits-service
+    spec:
+      containers:
+        - name: visits-service-container
+          image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-visits-service:latest
+          imagePullPolicy: Always
+          ports:
+            - name: visits-service
+              containerPort: 9090
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    service: visits-service
+  name: visits-service
+  namespace: bytebusters
+spec:
+  ports:
+    - name: visits-service
+      port: 9090
+      targetPort: 9090
+  selector:
+    service: visits-service
+  type: ClusterIP
