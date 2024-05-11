@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    service: admin-server
+  name: admin-server
+  namespace: bytebusters
+spec:
+  selector:
+    matchLabels:
+      service: admin-server
+  template:
+    metadata:
+      labels:
+        service: admin-server
+    spec:
+      containers:
+      - name: admin-server-container
+        image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-admin-server
+        imagePullPolicy: Always
+        ports:
+          - name: admin-server
+            containerPort: 9090
+      imagePullSecrets:
+      - name: dockerconfigjson-github-com
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    service: admin-server
+  name: admin-server
+  namespace: bytebusters
+spec:
+  ports:
+    - name: admin-server
+      port: 9090
+      targetPort: 9090
+  selector:
+    service: admin-server
+  type: ClusterIP
