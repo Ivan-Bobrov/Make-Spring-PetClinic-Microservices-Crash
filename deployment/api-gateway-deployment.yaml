@@ -51,11 +51,11 @@ metadata:
   labels:
     service: api-gateway
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1 
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
   namespace: bytebusters
 spec:
   rules:
-    - host: hello-world.info 
+    - host: hello-world.info
       http:
         paths:
           - path: /(.*)

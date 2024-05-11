@@ -19,7 +19,7 @@ spec:
         image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-discovery-server
         imagePullPolicy: Always
         ports:
-          - name: discovery-server
+          - name: disc-server
             containerPort: 8761
       imagePullSecrets:
       - name: dockerconfigjson-github-com

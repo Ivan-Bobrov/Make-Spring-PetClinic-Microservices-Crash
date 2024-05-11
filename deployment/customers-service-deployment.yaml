@@ -19,7 +19,7 @@ spec:
           image: ghcr.io/ivan-bobrov/make-spring-petclinic-microservices-crash/spring-petclinic-customers-service:latest
           imagePullPolicy: Always
           ports:
-            - name: customers-service
+            - name: cust-service
               containerPort: 8081
       imagePullSecrets:
         - name: dockerconfigjson-github-com
