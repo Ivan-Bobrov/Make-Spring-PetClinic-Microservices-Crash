@@ -21,3 +21,4 @@ target/
 generated/
 
 deployment/dockerconfigjson.yaml
+.DS_Store
