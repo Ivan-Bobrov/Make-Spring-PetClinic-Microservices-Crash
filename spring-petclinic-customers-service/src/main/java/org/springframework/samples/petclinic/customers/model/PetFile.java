@@ -14,8 +14,8 @@ public class PetFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="data")
-    private byte[] data;
+    @Column(name="path")
+    private String path;
 
     @Column(name = "description")
     private String description;

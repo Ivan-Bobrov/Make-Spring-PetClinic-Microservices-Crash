@@ -27,6 +27,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -67,10 +71,18 @@ class PetResource {
     }
 
     @GetMapping("/owners/{ownerId}/pets/{petId}/files")
-    public List<PetFile> getFiles(@PathVariable("petId") int petId){
-        Pet pet = petRepository.findById(petId)
-            .orElseThrow(()-> new ResourceNotFoundException("Pet "+petId+" not found"));
-        return pet.getFiles();
+    public List<PetFileResponse> getFiles(@PathVariable("petId") int petId){
+        List<PetFile> files = petFileRepository.findAllByPetId(petId);
+        List<PetFileResponse> frontendFiles = new ArrayList<>();
+        for (PetFile file : files) {
+            try {
+                byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
+                frontendFiles.add(new PetFileResponse(data, file.getDate(), file.getDescription()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return frontendFiles;
     }
 
 
@@ -84,25 +96,27 @@ class PetResource {
             .orElseThrow(() -> new ResourceNotFoundException("Pet " + petId + " not found"));
 
         final PetFile petFile = new PetFile();
-        pet.addFile(petFile);
+        //pet.addFile(petFile);
         petFile.setPet(pet);
         saveFile(petFile, file, date, description);
 
     }
 
     private void saveFile(final PetFile petFile, final MultipartFile file, final Date date, final String description) {
-        try{
-            petFile.setData(file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         petFile.setDescription(description);
         petFile.setDate(date);
+        Path path = Paths.get("spring-petclinic-customers-service/src/main/resources/db/fileSystem" + file.getOriginalFilename());
+        try {
+            Files.createFile(path);
+            Files.write(path, file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        petFile.setPath(path.toString());
         petFileRepository.save(petFile);
         System.out.printf("DEBUG: File has been uploaded\n" +
-            "Length: %d\n" +
-            "Description: %s\n", petFile.getData().length, petFile.getDescription());
+            "Description: %s\n", petFile.getDescription());
     }
 
     @PutMapping("/owners/*/pets/{petId}")
