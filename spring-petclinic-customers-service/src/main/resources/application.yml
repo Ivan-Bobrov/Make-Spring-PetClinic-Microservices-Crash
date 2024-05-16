@@ -3,8 +3,17 @@ spring:
     name: customers-service
   config:
     import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
-
-
+  servlet:
+    multipart:
+      max-file-size: 250MB #undefined max file size
+      max-request-size: 250MB #undefined max request size
+server:
+  tomcat:
+    max-http-form-post-size: 250MB
+  jetty:
+    max-http-form-post-size: 250MB
+  undertow:
+    max-http-post-size: 250MB
 ---
 spring:
   config:

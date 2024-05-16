@@ -24,9 +24,17 @@ spring:
             - Path=/api/customer/**
           filters:
             - StripPrefix=2
-
-
-
+  servlet:
+    multipart:
+      max-file-size: 250MB #undefined max file size
+      max-request-size: 250MB #undefined max request size
+server:
+  tomcat:
+    max-http-form-post-size: 250MB
+  jetty:
+    max-http-form-post-size: 250MB
+  undertow:
+    max-http-post-size: 250MB
 ---
 spring:
   config:
@@ -37,7 +45,4 @@ spring:
     multipart:
       max-file-size: 0 #undefined max file size
       max-request-size: 0 #undefined max request size
-
-
----
 
