@@ -20,6 +20,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.samples.petclinic.customers.web.mapper.OwnerEntityMapper;
 import org.springframework.samples.petclinic.customers.model.Owner;
@@ -68,8 +72,14 @@ class OwnerResource {
      * Read List of Owners
      */
     @GetMapping
-    public List<Owner> findAll() {
-        return ownerRepository.findAll();
+    public Page<Owner> findAll(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue = "lastName") String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        Page<Owner> result = ownerRepository.findAll(pageable);
+        log.info("Page number: {}, Page size: {}, Total elements: {}", page, size, result.getTotalElements());
+        return result;
     }
 
     /**
