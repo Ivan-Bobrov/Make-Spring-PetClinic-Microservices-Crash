@@ -18,6 +18,21 @@ angular.module('petFiles')
 
         self.uploadFile = function () {
             var file = document.getElementById('file').files[0];
+
+            var parts = file.name.toString().split(".");
+            var fileType = parts[parts.length-1];
+            console.log(fileType)
+            if (fileType !== "pdf") {
+                alert("Only PDF files are allowed. Please select a valid file.");
+                return;
+            }
+
+            var fileSizeMB = file.size / 1024 / 1024;
+            if (fileSizeMB > 5) {
+                alert("File size exceeds the 5MB limit. Please select a smaller file.");
+                return;
+            }
+
             var formData = new FormData();
             formData.append('file', file);
             formData.append('date', $filter('date')(self.date, "yyyy-MM-dd"));
@@ -31,7 +46,7 @@ angular.module('petFiles')
                 return $http.get(url);
             }).then(function (response) {
                 self.files = response.data;
-                $state.go('ownerDetails', { ownerId: ownerId });
+                $state.go('petDetails', { petID: petId });
             });
 
         };
