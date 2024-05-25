@@ -29,3 +29,9 @@
         <td class="hidden-xs"><span ng-repeat="pet in owner.pets track by pet.id">{{pet.name + ' '}}</span></td>
     </tr>
 </table>
+
+<div class="paging-buttons">
+    <button ng-disabled="$ctrl.currentPage === 0" ng-click="$ctrl.prevPage()">Previous</button>
+    <span>Page {{$ctrl.currentPage + 1}} of {{$ctrl.totalPages}}</span>
+    <button ng-disabled="$ctrl.currentPage === $ctrl.totalPages - 1" ng-click="$ctrl.nextPage()">Next</button>
+</div>

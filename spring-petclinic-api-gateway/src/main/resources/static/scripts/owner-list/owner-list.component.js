@@ -5,3 +5,4 @@ angular.module('ownerList')
         templateUrl: 'scripts/owner-list/owner-list.template.html',
         controller: 'OwnerListController'
     });
+

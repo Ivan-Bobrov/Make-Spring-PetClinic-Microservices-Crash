@@ -73,13 +73,12 @@ class OwnerResource {
     @GetMapping
     public Page<Owner> findAll(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue = "50") int size,
         @RequestParam(defaultValue = "lastName") String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        Page<Owner> result = ownerRepository.findAll(pageable);
-        log.info("Page number: {}, Page size: {}, Total elements: {}", page, size, result.getTotalElements());
-        return result;
+        return ownerRepository.findAll(pageable);
     }
+
 
     /**
      * Update Owner

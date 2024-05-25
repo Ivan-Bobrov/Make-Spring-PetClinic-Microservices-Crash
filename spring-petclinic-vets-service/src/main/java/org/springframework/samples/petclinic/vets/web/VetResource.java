@@ -45,14 +45,12 @@ class VetResource {
     private final VetRepository vetRepository;
 
     @GetMapping
-    @Cacheable("vets")
     public Page<Vet> findAll(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue = "50") int size,
         @RequestParam(defaultValue = "lastName") String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        Page<Vet> result = vetRepository.findAll(pageable);
-//        log.info("Page number: {}, Page size: {}, Total elements: {}", page, size, result.getTotalElements());
-        return result;
+        return vetRepository.findAll(pageable);
     }
+
 }
