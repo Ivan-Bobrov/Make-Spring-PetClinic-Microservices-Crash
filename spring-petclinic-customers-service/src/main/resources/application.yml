@@ -3,11 +3,31 @@ spring:
     name: customers-service
   config:
     import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
-
-
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+server:
+  tomcat:
+    max-http-form-post-size: 5MB
+  jetty:
+    max-http-form-post-size: 5MB
+  undertow:
+    max-http-post-size: 5MB
 ---
 spring:
   config:
     activate:
       on-profile: docker
     import: configserver:http://config-server:8888
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+server:
+  tomcat:
+    max-http-form-post-size: 5MB
+  jetty:
+    max-http-form-post-size: 5MB
+  undertow:
+    max-http-post-size: 5MB
