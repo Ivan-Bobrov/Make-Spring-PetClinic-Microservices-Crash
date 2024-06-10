@@ -8,15 +8,11 @@ angular.module('vetDetails')
         $http.get('api/vet/vets').then(function (resp) {
             self.vetList = resp.data;
             for(var i=0; i < self.vetList.length; i++){
-                console.log("vet id: " + self.vetList[i].id + " vet id: " + $stateParams.vetId);
                 if(self.vetList[i].id == $stateParams.vetId){
                     self.vetList.splice(i, 1);
                     //break;
                 }
             }
-
-            //console.log("vet id: " + vet.id + " vet id: " + $stateParams.vetId);
-
         });
 
         $http.get('api/gateway/vets/' + $stateParams.vetId).then(function (resp) {
@@ -27,13 +23,10 @@ angular.module('vetDetails')
             self.available = resp.data;
         });
 
-
         self.setAvailable = function(){
             let vetId = self.vet.id;
             $http.post("api/vet/vets/" + vetId + "/available", self.available);
         }
-
-
 
         var req;
         self.submitVet =  function () {
