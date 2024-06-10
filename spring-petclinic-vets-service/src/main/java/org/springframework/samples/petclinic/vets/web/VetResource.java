@@ -46,14 +46,14 @@ class VetResource {
     }
 
     @GetMapping(value = "/{vetId}")
-    public Optional<Vet> findVet(@PathVariable("vetId") @Min(1) int vetId){
+    public Optional<Vet> findVet(@PathVariable("vetId") @Min(1) int vetId) {
         return vetRepository.findById(vetId);
     }
 
     @PostMapping(value = "/{vetId}/sub")
     public void selectSubstitute(
         @RequestBody int sub,
-        @PathVariable("vetId") @Min(1) int vetId){
+        @PathVariable("vetId") @Min(1) int vetId) {
         Vet vet = vetRepository.findById(vetId).
             orElseThrow();
         vet.setSubstitute(sub);
@@ -66,13 +66,17 @@ class VetResource {
     public int choseVet(@PathVariable("vetId") @Min(1) int vetId) {
         try {
             Vet current = vetRepository.findById(vetId).orElseThrow();
-
-        Vet current = vetRepository.findById(vetId).orElseThrow();
-        long vetListLength =  vetRepository.count() - 1;
-        int loopCount = 0;
-        System.out.println("Anzahl der Vet: "+ vetListLength);
+            long vetListLength = vetRepository.count() - 1;
+            int loopCount = 0;
+            System.out.println("Anzahl der Vet: " + vetListLength);
 
             while (current.getAvailable() == null || !current.getAvailable()) {
+                if (loopCount < vetListLength) {
+                    System.out.println("DEBUG loopCounter auf: " + loopCount);
+                    loopCount++;
+                } else {
+                    return -1;
+                }
                 if (current.getSubstitute() == null) {
                     throw new IllegalArgumentException();
                 }
@@ -83,27 +87,13 @@ class VetResource {
             return -1;
         }
     }
-        while((current.getAvailable()== null || !current.getAvailable())){
-            if(loopCount < vetListLength){
-                loopCount++;
-            } else {
-                return -1;
-            }
-            System.out.println("DEBUG loopCounter auf: "+ loopCount);
-            try{
-                current = vetRepository.findById(current.getSubstitute()).orElseThrow();
-            } catch (IllegalArgumentException e){
-                return -1;
-            }
-        }
-
 
 
 
     @PostMapping(value = "/{vetId}/available")
     public void setAvailable(
         @RequestBody boolean available,
-        @PathVariable("vetId") @Min(1) int vetId){
+        @PathVariable("vetId") @Min(1) int vetId) {
         Vet vet = vetRepository.findById(vetId).
             orElseThrow();
         vet.setAvailable(available);
@@ -116,7 +106,7 @@ class VetResource {
     public boolean getAvailable(
         @PathVariable("vetId") @Min(1) int vetId) throws IllegalArgumentException {
 
-        if(isAvailable(vetId)==null) return false;
+        if (isAvailable(vetId) == null) return false;
         return isAvailable(vetId);
     }
 
@@ -129,11 +119,11 @@ class VetResource {
 
     @GetMapping(value = "/{vetId}/sub")
     public int getSubstitute(
-        @PathVariable("vetId") @Min(1) int vetId){
+        @PathVariable("vetId") @Min(1) int vetId) {
         Vet vet = vetRepository.findById(vetId).
             orElseThrow();
-        System.out.printf("DEBUG: Substitute von %d wurde ist Bereits %d.\n",vetId,vet.getSubstitute());
-        if(vet.getSubstitute()==null) return -1;
+        System.out.printf("DEBUG: Substitute von %d wurde ist Bereits %d.\n", vetId, vet.getSubstitute());
+        if (vet.getSubstitute() == null) return -1;
         return vet.getSubstitute();
     }
 }
