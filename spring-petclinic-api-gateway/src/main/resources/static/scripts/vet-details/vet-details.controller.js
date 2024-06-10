@@ -1,12 +1,22 @@
 'use strict';
 
 angular.module('vetDetails')
-    .controller('VetDetailsController', ['$http', '$stateParams', function ($http, $stateParams) {
+    .controller('VetDetailsController', ['$http', '$state', '$stateParams', function ($http, $state, $stateParams) {
         var self = this;
         self.selectedVetId = null;
 
         $http.get('api/vet/vets').then(function (resp) {
             self.vetList = resp.data;
+            for(var i=0; i < self.vetList.length; i++){
+                console.log("vet id: " + self.vetList[i].id + " vet id: " + $stateParams.vetId);
+                if(self.vetList[i].id == $stateParams.vetId){
+                    self.vetList.splice(i, 1);
+                    //break;
+                }
+            }
+
+            //console.log("vet id: " + vet.id + " vet id: " + $stateParams.vetId);
+
         });
 
         $http.get('api/gateway/vets/' + $stateParams.vetId).then(function (resp) {
@@ -17,18 +27,15 @@ angular.module('vetDetails')
             self.available = resp.data;
         });
 
-        let aktuelleZeit = new Date();
-        let stunden = aktuelleZeit.getHours();
-        let minuten = aktuelleZeit.getMinutes();
-        let sekunden = aktuelleZeit.getSeconds();
-        console.log(`Aktuelle Zeit: ${stunden}:${minuten}:${sekunden}`);
-
 
         self.setAvailable = function(){
             let vetId = self.vet.id;
             $http.post("api/vet/vets/" + vetId + "/available", self.available);
         }
 
+
+
+        var req;
         self.submitVet =  function () {
             if (self.selectedVetId == null){
                 return;
@@ -37,12 +44,9 @@ angular.module('vetDetails')
             var vetId = $stateParams.vetId;
             var substitute = self.selectedVetId;
 
-            $http.post("api/vet/vets/" + vetId + "/sub", substitute);
+            req = $http.post("api/vet/vets/" + vetId + "/sub", substitute);
+            req.then(function () {
+                $state.go('vets');
+            });
         }
-
-            // req.then(function () {
-            //     $state.go('vetDetails', {vetId: self.vet.id});
-            // });
-
-
     }]);

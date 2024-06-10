@@ -68,8 +68,17 @@ class VetResource {
     public int choseVet(@PathVariable("vetId") @Min(1) int vetId) {
 
         Vet current = vetRepository.findById(vetId).orElseThrow();
+        long vetListLength =  vetRepository.count() - 1;
+        int loopCount = 0;
+        System.out.println("Anzahl der Vet: "+ vetListLength);
 
-        while(current.getAvailable()== null || !current.getAvailable()){
+        while((current.getAvailable()== null || !current.getAvailable())){
+            if(loopCount < vetListLength){
+                loopCount++;
+            } else {
+                return -1;
+            }
+            System.out.println("DEBUG loopCounter auf: "+ loopCount);
             try{
                 current = vetRepository.findById(current.getSubstitute()).orElseThrow();
             } catch (IllegalArgumentException e){
@@ -77,6 +86,9 @@ class VetResource {
             }
         }
 
+        if(loopCount == vetListLength){
+            return -1;
+        }
         return current.getId();
     }
 
