@@ -1,8 +1,12 @@
+Application.yml:
 spring:
   application:
     name: customers-service
   config:
     import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
+  cache:
+    cache-names: owners
+
 
 
 ---

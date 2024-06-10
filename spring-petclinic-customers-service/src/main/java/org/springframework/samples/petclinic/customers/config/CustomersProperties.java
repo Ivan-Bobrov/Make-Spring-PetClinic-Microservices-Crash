@@ -13,22 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.customers;
+package org.springframework.samples.petclinic.customers.config;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * Typesafe custom configuration.
+ *
  * @author Maciej Szarlinski
  */
-@EnableDiscoveryClient
-@SpringBootApplication
-@EnableCaching
-public class CustomersServiceApplication {
+@Data
+@ConfigurationProperties(prefix = "owners")
+public class CustomersProperties {
 
-    public static void main(String[] args) {
-        SpringApplication.run(CustomersServiceApplication.class, args);
+    private Cache cache;
+
+    @Data
+    public static class Cache {
+
+        private int ttl;
+
+        private int heapSize;
     }
 }

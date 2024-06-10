@@ -20,6 +20,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.samples.petclinic.customers.web.mapper.OwnerEntityMapper;
 import org.springframework.samples.petclinic.customers.model.Owner;
@@ -59,16 +60,20 @@ class OwnerResource {
     /**
      * Read single Owner
      */
+    @Cacheable("owners")
     @GetMapping(value = "/{ownerId}")
     public Optional<Owner> findOwner(@PathVariable("ownerId") @Min(1) int ownerId) {
+        System.err.println("!!!!!!!!!!!!!TEST GET JUST ONE OWNER!!!!!!!!!!!!!!!!!!!!!!!");
         return ownerRepository.findById(ownerId);
     }
 
     /**
      * Read List of Owners
      */
+    @Cacheable("owners")
     @GetMapping
     public List<Owner> findAll() {
+        System.err.println("!!!!!!!!!!!!!TEST GET ALL OWNERS!!!!!!!!!!!!!!!!!!!!!!!");
         return ownerRepository.findAll();
     }
 
