@@ -1,0 +1,28 @@
+<h2>Pet Medical Records</h2>
+
+<form onsubmit="javascript:void(0)" style="max-width: 20em; margin-top: 2em;">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search Filter" ng-model="$ctrl.query" />
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Birthday</th>
+    </tr>
+    </thead>
+
+    <tr ng-repeat="pet in $ctrl.petList | filter:$ctrl.query track by pet.id">
+        <td>
+            <a ui-sref="petDetails({ petId: pet.id })">
+                {{pet.name}}
+            </a>
+        </td>
+        <td>{{pet.type.name}}</td>
+        <td>{{pet.birthDate}}</td>
+
+    </tr>
+</table>
