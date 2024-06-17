@@ -22,6 +22,7 @@ import org.springframework.samples.petclinic.vets.model.Vet;
 import org.springframework.samples.petclinic.vets.model.VetRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,8 +70,14 @@ class VetResource {
             long vetListLength = vetRepository.count() - 1;
             int loopCount = 0;
             System.out.println("Anzahl der Vet: " + vetListLength);
+            List<Integer> visitedVets = new ArrayList<>();
+
+
 
             while (current.getAvailable() == null || !current.getAvailable()) {
+                if (visitedVets.contains(current.getId())) {
+                    return -1;
+                }
                 if (loopCount < vetListLength) {
                     System.out.println("DEBUG loopCounter auf: " + loopCount);
                     loopCount++;
@@ -80,6 +87,7 @@ class VetResource {
                 if (current.getSubstitute() == null) {
                     throw new IllegalArgumentException();
                 }
+                visitedVets.add(current.getId());
                 current = vetRepository.findById(current.getSubstitute()).orElseThrow(IllegalArgumentException::new);
             }
             return current.getId();
