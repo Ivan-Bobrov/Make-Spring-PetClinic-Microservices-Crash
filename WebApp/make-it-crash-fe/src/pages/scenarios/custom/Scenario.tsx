@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { GATLING_RETURN_VALUE_MOCK } from '../../../testing/GatlingMock';
 import { GatlingResponse } from './GatlingResponseInterfaces';
 import { Alert, Box, LinearProgress } from '@mui/material';
-import { GatlingDataDisplay } from '../../../utils/DataDisplay';
+import { GatlingDataDisplay } from '../../../utils/GatlingDataDisplay';
 
 function Scenario({ title, text, path, duration, users }: { title: string, text: string, path: string, duration: string, users: string }) {
     const [showSpinner, setShowSpinner] = useState(false);

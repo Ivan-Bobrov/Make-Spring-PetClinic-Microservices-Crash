@@ -15,7 +15,7 @@ import {
 } from '@mui/icons-material';
 import { GATLING_RETURN_VALUE_MOCK } from '../../../../testing/GatlingMock';
 import { GatlingResponse } from '../GatlingResponseInterfaces';
-import { GatlingDataDisplay } from '../../../../utils/DataDisplay';
+import { GatlingDataDisplay } from '../../../../utils/GatlingDataDisplay';
 import { InputField } from '../../../../utils/InputField';
 
 const options = [
