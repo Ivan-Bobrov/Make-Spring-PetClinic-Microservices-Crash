@@ -12,8 +12,6 @@
     </div>
 </form>
 
-
-
 <table class="table table-striped">
     <thead>
     <tr>
@@ -23,14 +21,15 @@
     </tr>
     </thead>
 
+    <tbody>
     <tr ng-repeat="pet in $ctrl.petList | filter:$ctrl.query track by pet.id">
         <td>
-            <a ui-sref="petRecord({ petId: pet.id })">
+            <a ng-click="$ctrl.LockRecord(pet.id, $ctrl.selectedVet)" ui-sref="petRecord({petId: pet.id, vetId: $ctrl.selectedVet})">
                 {{pet.name}}
             </a>
         </td>
         <td>{{pet.type.name}}</td>
         <td>{{pet.birthDate}}</td>
-
     </tr>
+    </tbody>
 </table>

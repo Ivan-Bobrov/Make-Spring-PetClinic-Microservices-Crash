@@ -2,6 +2,6 @@
 
 angular.module('petRecord')
     .component('petRecord', {
-        templateUrl: 'scripts/owner-details/pet-record.template.html',
+        templateUrl: 'scripts/pet-record/pet-record.template.html',
         controller: 'PetRecordController'
     });

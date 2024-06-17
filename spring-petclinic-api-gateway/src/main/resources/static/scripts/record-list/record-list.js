@@ -6,6 +6,6 @@ angular.module('recordList', ['ui.router'])
             .state('records', {
                 parent: 'app',
                 url: '/records',
-                template: '<record-list></record-list>'
+                template: '<record-list></record-list>',
             })
     }]);

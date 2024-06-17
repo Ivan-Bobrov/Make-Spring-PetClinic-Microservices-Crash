@@ -1,7 +1,5 @@
-<h2>Medical Record</h2>
-
-
-<textarea class="form-control" rows="10" ng-model="$ctrl.owner" ng-disabled="true"></textarea>
-
-
-
+<div ng-app="petRecord" ng-controller="PetRecordController as $ctrl">
+    <h2>Medical Record</h2>
+    <p>{{ $ctrl.petId }}</p>
+    <p>{{ $ctrl.vetId }}</p>
+</div>

@@ -5,7 +5,7 @@ angular.module('petRecord', ['ui.router'])
         $stateProvider
             .state('petRecord', {
                 parent: 'app',
-                url: '/records/:PetId',
+                url: '/records/pet/:petId/:vetId',
                 template: '<pet-record></pet-record>'
             })
     }]);
