@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.api.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.samples.petclinic.api.dto.CourseDetails;
 import org.springframework.samples.petclinic.api.dto.OwnerDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -35,5 +36,12 @@ public class CustomersServiceClient {
             .uri("http://customers-service/owners/{ownerId}", ownerId)
             .retrieve()
             .bodyToMono(OwnerDetails.class);
+    }
+
+    public Mono<CourseDetails> getCourse(final int courseId) {
+        return webClientBuilder.build().get()
+            .uri("http://customers-service/courses/{coueseId}", courseId)
+            .retrieve()
+            .bodyToMono(CourseDetails.class);
     }
 }

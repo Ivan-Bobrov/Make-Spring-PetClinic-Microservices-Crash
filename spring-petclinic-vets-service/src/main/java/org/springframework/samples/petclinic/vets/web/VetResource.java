@@ -15,14 +15,17 @@
  */
 package org.springframework.samples.petclinic.vets.web;
 
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.samples.petclinic.vets.model.Vet;
 import org.springframework.samples.petclinic.vets.model.VetRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,5 +46,10 @@ class VetResource {
     @GetMapping
     public List<Vet> showResourcesVetList() {
         return vetRepository.findAll();
+    }
+
+    @GetMapping(value = "/{vetId}")
+    public Optional<Vet> findVet(@PathVariable("vetId") @Min(1) int vetId) {
+        return vetRepository.findById(vetId);
     }
 }
