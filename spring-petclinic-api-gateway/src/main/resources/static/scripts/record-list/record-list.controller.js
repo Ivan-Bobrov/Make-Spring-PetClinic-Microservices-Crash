@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('recordList')
-    .controller('RecordListController', ['$http', function ($http, $stateParams, $state) {
+    .controller('RecordListController', ['$http', '$state', function ($http, $state) {
         var self = this;
 
         $http.get('api/customer/pets').then(function (resp) {
@@ -12,13 +12,16 @@ angular.module('recordList')
             self.vetList = resp.data;
         });
 
-        var req;
-        self.LockRecord =  function (petId, vetId) {
+        self.LockRecord = function (petId, vetId) {
+            if (!vetId) {
+                alert('Please select a vet before accessing the pet record.');
+                return;
+            }
             console.log("Pet ID: " + petId);
             console.log("Vet ID: " + vetId);
 
-            //TODO IMPLEMENT LOGIC
+            $state.go('petRecord', { petId: petId, vetId: vetId });
 
-            //$http.post("api/vet/vets/");
-        }
+            // TODO: Implement additional logic if needed
+        };
     }]);
