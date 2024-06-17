@@ -7,4 +7,8 @@ angular.module('recordList')
         $http.get('api/customer/pets').then(function (resp) {
             self.petList = resp.data;
         });
+
+        $http.get('api/vet/vets').then(function (resp) {
+            self.vetList = resp.data;
+        });
     }]);

@@ -4,7 +4,15 @@
     <div class="form-group">
         <input type="text" class="form-control" placeholder="Search Filter" ng-model="$ctrl.query" />
     </div>
+    <div class="form-group">
+        <select class="form-control" ng-model="$ctrl.selectedVet">
+            <option value="" disabled selected>Select Vet</option>
+            <option ng-repeat="vet in $ctrl.vetList" value="{{vet.id}}">{{vet.firstName}} {{vet.lastName}}</option>
+        </select>
+    </div>
 </form>
+
+
 
 <table class="table table-striped">
     <thead>
@@ -17,7 +25,7 @@
 
     <tr ng-repeat="pet in $ctrl.petList | filter:$ctrl.query track by pet.id">
         <td>
-            <a ui-sref="petDetails({ petId: pet.id })">
+            <a ui-sref="petRecord({ petId: pet.id })">
                 {{pet.name}}
             </a>
         </td>
