@@ -19,11 +19,9 @@ public class DatabaseDataInitializer {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.initialize = initialize;
     }
-
-    @PostConstruct
-    private void init() {
-        if (initialize) {
-            int numberOfInserts = 50000;
+//    @PostConstruct
+    public void init(int numberOfInserts) {
+//        if (initialize) {
             String[] firstNames = {"George", "Betty", "Eduardo", "Harold", "Peter", "Jean", "Jeff", "Maria", "David", "Carlos", "Lisa", "Paul", "Nina", "Oscar", "Chloe", "Lucas", "Ella", "Mason", "Grace", "Ethan"};
             String[] lastNames = {"Franklin", "Davis", "Rodriquez", "Davis", "McTavish", "Coleman", "Black", "Escobito", "Schroeder", "Estaban", "Parker", "Murphy", "Bailey", "Cooper", "Morgan", "Bell", "Rivera", "Cook", "Griffin", "Kelly"};
             String[] addresses = {"110 W. Liberty St.", "638 Cardinal Ave.", "2693 Commerce St.", "563 Friendly St.", "2387 S. Fair Way", "105 N. Lake St.", "1450 Oak Blvd.", "345 Maple St.", "2749 Blackhawk Trail", "2335 Independence La."};
@@ -48,6 +46,6 @@ public class DatabaseDataInitializer {
                     firstName, lastName, address, city, telephone);
                 jdbcTemplate.execute(sql);
             }
-        }
+//        }
     }
 }
