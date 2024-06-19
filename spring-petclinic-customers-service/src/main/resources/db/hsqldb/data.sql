@@ -29,3 +29,17 @@ INSERT INTO pets VALUES (10, 'Mulligan', '2007-02-24', 2, 8);
 INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 5, 9);
 INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 2, 10);
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 1, 10);
+
+INSERT INTO pet_records VALUES (1, "", CURRENT_TIMESTAMP()-1800000, false, -1, 1);
+INSERT INTO pet_records VALUES (2, "", CURRENT_TIMESTAMP()-1800000, false, -1, 2);
+INSERT INTO pet_records VALUES (3, "", CURRENT_TIMESTAMP()-1800000, false, -1, 3);
+INSERT INTO pet_records VALUES (4, "", CURRENT_TIMESTAMP()-1800000, false, -1, 4);
+INSERT INTO pet_records VALUES (5, "", CURRENT_TIMESTAMP()-1800000, false, -1, 5);
+INSERT INTO pet_records VALUES (6, "", CURRENT_TIMESTAMP()-1800000, false, -1, 6);
+INSERT INTO pet_records VALUES (7, "", CURRENT_TIMESTAMP()-1800000, false, -1, 7);
+INSERT INTO pet_records VALUES (8, "", CURRENT_TIMESTAMP()-1800000, false, -1, 8);
+INSERT INTO pet_records VALUES (9, "", CURRENT_TIMESTAMP()-1800000, false, -1, 9);
+INSERT INTO pet_records VALUES (10, "", CURRENT_TIMESTAMP()-1800000, false, -1, 10);
+INSERT INTO pet_records VALUES (11, "", CURRENT_TIMESTAMP()-1800000, false, -1, 11);
+INSERT INTO pet_records VALUES (12, "", CURRENT_TIMESTAMP()-1800000, false, -1, 12);
+INSERT INTO pet_records VALUES (13, "", CURRENT_TIMESTAMP()-1800000, false, -1, 13);
