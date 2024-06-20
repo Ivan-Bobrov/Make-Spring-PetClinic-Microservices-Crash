@@ -49,3 +49,14 @@ spring:
 
 database:
   initialize: false
+
+---
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false  # Disable console logging, we'll capture it with the logger
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # For binding parameters
