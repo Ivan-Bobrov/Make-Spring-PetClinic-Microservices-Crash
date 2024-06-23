@@ -28,7 +28,6 @@ import org.springframework.samples.petclinic.api.dto.Visits;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -54,24 +53,28 @@ public class ApiGatewayController {
         return customersServiceClient.getCourse(courseId)
             .flatMap(course ->
                 vetsServiceClient.getInstructor(course.getInstructorId())
-                    .onErrorResume(this::emptyInstructor)
                     .map(addInstructorToCourse(course))
             );
-    }
+    }//
 
     // FIX WITH CIRCUITBREAKER
-//   @GetMapping(value = "/courses/{courseId}")
-//   public Mono<CourseDetails> getCourseDetails(final @PathVariable int courseId) {
-//       return customersServiceClient.getCourse(courseId)
-//           .flatMap(course ->
-//               vetsServiceClient.getInstructor(course.getInstructorId())
-//                   .transform(it -> {
-//                       ReactiveCircuitBreaker cb = cbFactory.create("getCourseDetails");
-//                       return cb.run(it, throwable -> emptyInstructor(throwable));
-//                   })
-//                   .map(addInstructorToCourse(course))
-//           );
-//   }
+//  @GetMapping(value = "/courses/{courseId}")
+//  public Mono<CourseDetails> getCourseDetails(final @PathVariable int courseId) {
+//      return customersServiceClient.getCourse(courseId)
+//          .flatMap(course ->
+//              vetsServiceClient.getInstructor(course.getInstructorId())
+//                  .transform(it -> {
+//                      ReactiveCircuitBreaker cb = cbFactory.create("getCourseDetails");
+//                      return cb.run(it, throwable -> emptyInstructor(throwable));
+//           //       })
+//                  .map(addInstructorToCourse(course))
+//          );
+//  }
+
+
+    //   private Mono<InstructorDetails> emptyInstructor(Throwable throwable) {
+    //       return Mono.just(new InstructorDetails());
+    //   }
 
     private Function<InstructorDetails, CourseDetails> addInstructorToCourse(CourseDetails course) {
         return instructor -> {
@@ -107,12 +110,6 @@ public class ApiGatewayController {
 
     private Mono<Visits> emptyVisitsForPets() {
         return Mono.just(new Visits());
-    }
-
-    private Mono<InstructorDetails> emptyInstructor(Throwable throwable) {
-        System.out.println(throwable.getMessage());
-        System.out.println("#################################### CIRCUITBREAKER");
-        return Mono.just(new InstructorDetails());
     }
 
 

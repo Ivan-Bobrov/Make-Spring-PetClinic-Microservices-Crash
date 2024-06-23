@@ -18,6 +18,7 @@ import java.util.Optional;
 @Slf4j
 class CourseResource {
 
+    record CourseDto (int id, String name){}
     private final CourseRepository courseRepository;
 
     @GetMapping(value = "/{courseId}")
@@ -26,8 +27,8 @@ class CourseResource {
     }
 
     @GetMapping
-    public List<Course> findAll() {
-        return courseRepository.findAll();
+    public List<CourseDto> findAll() {
+        return courseRepository.findAll().stream().map(course -> new CourseDto(course.getId(), course.getName())).toList();
     }
 
 }
