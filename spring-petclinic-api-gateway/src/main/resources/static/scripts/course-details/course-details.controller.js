@@ -5,6 +5,6 @@ angular.module('courseDetails')
         var self = this;
 
         $http.get('api/gateway/courses/' + $stateParams.courseId).then(function (resp) {
-            self.owner = resp.data;
+            self.course = resp.data;
         });
     }]);
