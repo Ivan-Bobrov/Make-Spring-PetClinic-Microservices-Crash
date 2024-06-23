@@ -1,0 +1,26 @@
+<h2>Courses</h2>
+
+<form onsubmit="javascript:void(0)" style="max-width: 20em; margin-top: 2em;">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search Filter" ng-model="$ctrl.query" />
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Course No</th>
+        <th>Course Name</th>
+    </tr>
+    </thead>
+
+    <tr ng-repeat="course in $ctrl.courses | filter:$ctrl.query track by course.id">
+        <td>{{course.id}}</td>
+        <td>
+            <a ui-sref="courseDetails({ courseId: course.id })">
+                {{course.name}}
+            </a>
+        </td>
+
+    </tr>
+</table>

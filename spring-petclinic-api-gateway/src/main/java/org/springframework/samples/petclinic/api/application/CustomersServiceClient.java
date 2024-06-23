@@ -40,7 +40,7 @@ public class CustomersServiceClient {
 
     public Mono<CourseDetails> getCourse(final int courseId) {
         return webClientBuilder.build().get()
-            .uri("http://customers-service/courses/{coueseId}", courseId)
+            .uri("http://customers-service/courses/{courseId}", courseId)
             .retrieve()
             .bodyToMono(CourseDetails.class);
     }
