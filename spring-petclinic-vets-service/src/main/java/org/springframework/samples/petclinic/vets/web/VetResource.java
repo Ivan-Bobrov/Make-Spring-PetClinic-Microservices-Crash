@@ -22,12 +22,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.samples.petclinic.vets.config.DatabaseDataInitializer;
 import org.springframework.samples.petclinic.vets.model.Vet;
 import org.springframework.samples.petclinic.vets.model.VetRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Juergen Hoeller
@@ -42,6 +47,7 @@ import org.springframework.web.bind.annotation.RestController;
 class VetResource {
 
     private final VetRepository vetRepository;
+    private final DatabaseDataInitializer databaseDataInitializer;
 
     @GetMapping
     public List<Vet> showResourcesVetList() {
@@ -51,5 +57,81 @@ class VetResource {
     @GetMapping(value = "/{vetId}")
     public Optional<Vet> findVet(@PathVariable("vetId") @Min(1) int vetId) {
         return vetRepository.findById(vetId);
+    }
+
+    @PostMapping(value = "/{vetId}/sub")
+    public void selectSubstitute(
+        @RequestBody int sub,
+        @PathVariable("vetId") @Min(1) int vetId) {
+        Vet vet = vetRepository.findById(vetId).
+            orElseThrow();
+        vet.setSubstitute(sub);
+        vetRepository.save(vet);
+
+        System.out.printf("DEBUG: Der Sub von %d wurde auf %d gestellt.\n", vetId, sub);
+    }
+
+    @GetMapping(value = "/{vetId}/chose")
+    public int choseVet(@PathVariable("vetId") @Min(1) int vetId) {
+        try {
+            Vet current = vetRepository.findById(vetId).orElseThrow();
+
+            while (current.getAvailable() == null || !current.getAvailable()) {
+                if (current.getSubstitute() == null) {
+                    throw new IllegalArgumentException();
+                }
+                current = vetRepository.findById(current.getSubstitute()).orElseThrow(IllegalArgumentException::new);
+            }
+            return current.getId();
+        } catch (IllegalArgumentException e) {
+            return -1;
+        }
+    }
+
+    @PostMapping(value = "/{vetId}/available")
+    public void setAvailable(
+        @RequestBody boolean available,
+        @PathVariable("vetId") @Min(1) int vetId) {
+        Vet vet = vetRepository.findById(vetId).
+            orElseThrow();
+        vet.setAvailable(available);
+        vetRepository.save(vet);
+
+        System.out.printf("DEBUG: Die Verfügbarkeit von %s wurde auf %b gestellt.\n", vet.getFirstName(), vet.getAvailable());
+    }
+
+    @GetMapping(value = "/{vetId}/available")
+    public boolean getAvailable(
+        @PathVariable("vetId") @Min(1) int vetId) throws IllegalArgumentException {
+
+        if (isAvailable(vetId) == null) return false;
+        return isAvailable(vetId);
+    }
+
+    private Boolean isAvailable(int vetId) {
+        Vet vet = vetRepository.findById(vetId).
+            orElseThrow();
+        System.out.println("DEBUG: Available von " + vet.getFirstName() + "=" + vet.getAvailable());
+        return vet.getAvailable();
+    }
+
+    @GetMapping(value = "/{vetId}/sub")
+    public int getSubstitute(
+        @PathVariable("vetId") @Min(1) int vetId){
+        Vet vet = vetRepository.findById(vetId).
+            orElseThrow();
+        System.out.printf("DEBUG: Substitute von %d wurde ist Bereits %d.\n",vetId,vet.getSubstitute());
+        if(vet.getSubstitute()==null) return -1;
+        return vet.getSubstitute();
+    }
+
+    @PostMapping("/init")
+    public void initDatabase(@RequestParam(value = "inserts", defaultValue = "50000") int inserts) {
+        databaseDataInitializer.init(inserts);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteVetsWithIdGreaterThanSix() {
+        vetRepository.deleteVetsWithIdGreaterThanSix();
     }
 }
