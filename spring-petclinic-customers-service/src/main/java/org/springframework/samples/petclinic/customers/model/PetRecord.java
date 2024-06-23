@@ -23,7 +23,7 @@ public class PetRecord {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastAccess;
 
-    private AtomicBoolean locked;
+    private boolean locked;
 
     private Integer lockedBy;
 }

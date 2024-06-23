@@ -2,13 +2,22 @@
 
 angular.module('petRecord')
     .controller('PetRecordController', ['$http', '$state', '$stateParams', function ($http, $state , $stateParams) {
-        var self = this;
+        const self = this;
+
+        $http.get(`api/customer/pet-records/${$stateParams.petId}?vetId=${$stateParams.vetId}`).then(function (resp) {
+            self.record = resp.data;
+        });
 
         if(!$stateParams.petId || !$stateParams.vetId) {
             $state.go('recordList');
         }
 
-        self.petId = $stateParams.petId;
-        self.vetId = $stateParams.vetId;
+        self.description = $stateParams.description;
+
+        self.submitRecordForm = function () {
+            $http.put(`api/customer/pet-records/${$stateParams.petId}?vetId=${$stateParams.vetId}`, {description: self.description}).then(function () {
+                $state.go('recordList');
+            });
+        }
 
     }]);
