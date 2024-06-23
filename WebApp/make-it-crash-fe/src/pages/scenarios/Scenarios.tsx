@@ -12,9 +12,10 @@ function Scenarios() {
                 <div className="mt-3">
                     <h3>Unbalanced Capacities</h3>
                     <ul className="list-unstyled mt-3">
-                        <li className="mb-3"><ScenarioUnbalancedCapacities title="Make Vets Crash!" text="Der Service wird ausgelastet und reagiert für eine gewisse Zeit nicht mehr." path="vets" duration="5" users="100"></ScenarioUnbalancedCapacities></li>
-                        <li className="mb-3"><ScenarioUnbalancedCapacities title="Make Customers Crash!" text="Der Service wird ausgelastet und reagiert für eine gewisse Zeit nicht mehr." path="customers" duration="5" users="100"></ScenarioUnbalancedCapacities></li>
-                        <li className="mb-3"><ScenarioUnbalancedCapacities title="Make Visits Crash!" text="Der Service wird ausgelastet und reagiert für eine gewisse Zeit nicht mehr." path="visits" duration="5" users="100"></ScenarioUnbalancedCapacities></li>
+                        <li className="mb-3"><ScenarioUnbalancedCapacities title="Make Vets Crash!" text="Der Service wird ausgelastet und reagiert für eine gewisse Zeit nicht mehr." path="vets" duration="20" users="350"></ScenarioUnbalancedCapacities></li>
+                        <li className="mb-3"><ScenarioUnbalancedCapacities title="Make Customers Crash!" text="Der Service wird ausgelastet und reagiert für eine gewisse Zeit nicht mehr." path="customers" duration="20" users="850"></ScenarioUnbalancedCapacities></li>
+                        <li className="mb-3"><ScenarioUnbalancedCapacities title="Make Vets & Customers Crash!" text="Der Service wird ausgelastet und reagiert für eine gewisse Zeit nicht mehr." path="vets-customers" duration="20" users="350"></ScenarioUnbalancedCapacities></li>
+                        <li className="mb-3"><ScenarioUnbalancedCapacities title="Make Owner Information Crash!" text="Der Service wird ausgelastet und reagiert für eine gewisse Zeit nicht mehr. Der Test kann deutlich länger Dauern, als der Ladebalken es anzeigt." path="owners-information" duration="20" users="500"></ScenarioUnbalancedCapacities></li>
                         <li className="mb-3"><ScenarioUnbalancedCapacitiesWithParams title="Szenario mit flexiblen Parametern" text="Wähle in diesem Szenario deine bevorzugten Parameter aus."></ScenarioUnbalancedCapacitiesWithParams></li>
                     </ul>
                 </div>
