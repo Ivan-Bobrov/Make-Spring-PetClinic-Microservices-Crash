@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
 import org.springframework.samples.petclinic.api.application.CustomersServiceClient;
-import org.springframework.samples.petclinic.api.application.VetsServiceClient;
 import org.springframework.samples.petclinic.api.application.VetServiceClient;
 import org.springframework.samples.petclinic.api.application.VisitsServiceClient;
 import org.springframework.samples.petclinic.api.dto.CourseDetails;
@@ -54,17 +53,17 @@ public class ApiGatewayController {
     public Mono<CourseDetails> getCourseDetails(final @PathVariable int courseId) {
         return customersServiceClient.getCourse(courseId)
             .flatMap(course ->
-                vetsServiceClient.getInstructor(course.getInstructorId())
+                vetServiceClient.getInstructor(course.getInstructorId())
                     .map(addInstructorToCourse(course))
             );
-    }//
+    }
 
     // FIX WITH CIRCUITBREAKER
 //  @GetMapping(value = "/courses/{courseId}")
 //  public Mono<CourseDetails> getCourseDetails(final @PathVariable int courseId) {
 //      return customersServiceClient.getCourse(courseId)
 //          .flatMap(course ->
-//              vetsServiceClient.getInstructor(course.getInstructorId())
+//              vetServiceClient.getInstructor(course.getInstructorId())
 //                  .transform(it -> {
 //                      ReactiveCircuitBreaker cb = cbFactory.create("getCourseDetails");
 //                      return cb.run(it, throwable -> emptyInstructor(throwable));

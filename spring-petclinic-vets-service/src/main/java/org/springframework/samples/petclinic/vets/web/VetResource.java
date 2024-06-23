@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.samples.petclinic.vets.config.DatabaseDataInitializer;
 import org.springframework.samples.petclinic.vets.model.Vet;
 import org.springframework.samples.petclinic.vets.model.VetRepository;
@@ -30,9 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Juergen Hoeller
