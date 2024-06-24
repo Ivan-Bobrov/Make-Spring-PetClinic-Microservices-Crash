@@ -10,6 +10,8 @@ FROM eclipse-temurin:17
 
 WORKDIR /app
 
+COPY ./restart.sh /app
+
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8081
