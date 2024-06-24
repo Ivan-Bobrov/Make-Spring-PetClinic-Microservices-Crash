@@ -35,6 +35,17 @@ public class GatlingController {
         return gatewayUrl;
     }
 
+    @GetMapping("/restart")
+    public String restart() {
+        try {
+            Runtime.getRuntime().exec("./restart.sh");
+            return "Application restarted.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error restarting application.";
+        }
+    }
+
     @GetMapping(
         value = "/loadtest/vets",
         produces = "application/json"

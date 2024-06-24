@@ -18,11 +18,6 @@ function ScenarioUnboundedResultSetsDelete({ title, text, path }: { title: strin
                 baseURL: process.env.API_GW_URL,
                 responseType: 'json',
                 headers: { 'content-type': 'application/json' },
-                proxy: {
-                    protocol: 'http',
-                    host: '127.0.0.1',
-                    port: 8081,
-                  },
             })
             .then((response) => {
                 setShowSpinner(false);
