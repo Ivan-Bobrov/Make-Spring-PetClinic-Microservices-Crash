@@ -16,13 +16,8 @@ function ScenarioUnboundedResultSetsInit({ title, text, path, inserts }: { title
         axios
             .post(`${process.env.API_GW_URL}${path}/init?inserts=${inserts}`, {
                 params: { inserts },
-                responseType: 'json',
-                headers: { 'content-type': 'application/json' },
-                proxy: {
-                    protocol: 'http',
-                    host: '127.0.0.1',
-                    port: 8081,
-                  },
+                // responseType: 'json',
+                // headers: { 'content-type': 'application/json' },
             })
             .then((response) => {
                 setShowSpinner(false);

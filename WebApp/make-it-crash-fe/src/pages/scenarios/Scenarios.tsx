@@ -21,7 +21,7 @@ function Scenarios() {
                 </div>
                 <Divider className="mt-2"/>
                 <div className="mt-2">
-                    <h3>Unbounden Result Sets</h3>
+                    <h3>Unbounded Result Sets</h3>
                     <h5>Owners</h5>
                     <ul className="list-unstyled mt-3">
                         <li className="mb-3"><ScenarioUnboundedResultSetsInit title="Erstelle 50.000 User!" text="Der Service wird ausgelastet und reagiert für eine gewisse Zeit nicht mehr." path="customer/owners" inserts="50000"></ScenarioUnboundedResultSetsInit></li>
