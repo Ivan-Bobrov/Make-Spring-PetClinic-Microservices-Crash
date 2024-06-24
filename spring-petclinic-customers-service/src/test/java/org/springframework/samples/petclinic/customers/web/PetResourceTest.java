@@ -36,6 +36,9 @@ class PetResourceTest {
     MockMvc mvc;
 
     @MockBean
+    PetFileRepository petFileRepository;
+
+    @MockBean
     PetRepository petRepository;
 
     @MockBean
