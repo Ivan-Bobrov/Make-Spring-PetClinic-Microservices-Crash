@@ -21,9 +21,9 @@ function RestartServices() {
 
     return (
         <div>
-            <h1>Anwendung neu starten</h1>
-            <h3>Starte alle Services neu!</h3>
-            <Button variant="contained" onClick={restartServices}>neu starten!</Button>
+            <h1 className="fw-bold">Anwendung neu starten</h1>
+            <h5>Starte alle Services neu!</h5>
+            <Button className="mt-2" variant="contained" onClick={restartServices}>neu starten!</Button>
             {data && <Alert severity="success" className="mt-2"><p>Der Neustart wurde getriggert, dies kann eine Weile dauern.</p><p><strong>Schaue selbst, wann die Anwendung wieder verfügbar ist.</strong></p></Alert>}
         </div>
     );

@@ -12,6 +12,7 @@ function Scenarios() {
                 <div className="mt-2">
                     <RestartServices></RestartServices>
                 </div>
+                <Divider className="mt-3"/>
                 <h1 className="fw-bold mt-3">Szenarien</h1>
                 <div className="mt-3">
                     <h3>Unbalanced Capacities</h3>
