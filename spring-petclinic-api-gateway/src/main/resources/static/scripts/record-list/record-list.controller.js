@@ -17,8 +17,6 @@ angular.module('recordList')
                 alert('Please select a vet before accessing the pet record.');
                 return;
             }
-            console.log("Pet ID: " + petId);
-            console.log("Vet ID: " + vetId);
 
             $state.go('petRecord', { petId: petId, vetId: vetId });
 
