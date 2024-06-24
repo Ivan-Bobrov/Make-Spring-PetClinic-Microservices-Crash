@@ -45,8 +45,21 @@ import java.util.Optional;
 @RestController
 @Timed("petclinic.owner")
 @RequiredArgsConstructor
+@CrossOrigin(
+    origins = "*",
+    allowedHeaders = "*",
+    allowCredentials = "*",
+    methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.OPTIONS,
+        RequestMethod.HEAD,
+        RequestMethod.PATCH,
+        RequestMethod.TRACE
+    })
 @Slf4j
-@CrossOrigin(origins = "*")
 class OwnerResource {
 
     private final OwnerRepository ownerRepository;
@@ -92,11 +105,13 @@ class OwnerResource {
         ownerRepository.save(ownerModel);
     }
     @PostMapping("/init")
+    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = RequestMethod.POST)
     public void initDatabase(@RequestParam(value = "inserts", defaultValue = "50000") int inserts) {
         databaseDataInitializer.init(inserts);
     }
 
     @DeleteMapping("/delete")
+    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = RequestMethod.DELETE)
     public void deleteOwnersWithIdGreaterThanTen() {
         ownerRepository.deleteOwnersWithIdGreaterThanTen();
     }

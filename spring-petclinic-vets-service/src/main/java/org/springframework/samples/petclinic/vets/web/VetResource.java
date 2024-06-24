@@ -35,8 +35,21 @@ import java.util.Optional;
  */
 @RequestMapping("/vets")
 @RestController
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@CrossOrigin(
+    origins = "*",
+    allowedHeaders = "*",
+    allowCredentials = "*",
+    methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.OPTIONS,
+        RequestMethod.HEAD,
+        RequestMethod.PATCH,
+        RequestMethod.TRACE
+    })
 class VetResource {
 
     private final VetRepository vetRepository;
@@ -119,11 +132,13 @@ class VetResource {
     }
 
     @PostMapping("/init")
+    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = RequestMethod.POST)
     public void initDatabase(@RequestParam(value = "inserts", defaultValue = "50000") int inserts) {
         databaseDataInitializer.init(inserts);
     }
 
     @DeleteMapping("/delete")
+    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = RequestMethod.DELETE)
     public void deleteVetsWithIdGreaterThanSix() {
         vetRepository.deleteVetsWithIdGreaterThanSix();
     }
