@@ -12,6 +12,8 @@ WORKDIR /app
 
 COPY ./restart.sh /app
 
+RUN chmod +x /app/restart.sh
+
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8081

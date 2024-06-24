@@ -39,7 +39,7 @@ public class GatlingController {
     public String restart() {
         try {
             Runtime.getRuntime().exec("./restart.sh");
-            return "Restarting application.";
+            return "Application restarted.";
         } catch (Exception e) {
             e.printStackTrace();
             return "Error restarting application.";
