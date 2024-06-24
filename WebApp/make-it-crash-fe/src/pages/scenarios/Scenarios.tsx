@@ -4,11 +4,15 @@ import ScenarioUnbalancedCapacitiesWithParams from "./custom/unbalancedCapacitie
 import ScenarioUnboundedResultSetsDelete from "./custom/unboundedResultSets/ScenarioUnboundedResultSetsDelete"
 import ScenarioUnboundedResultSetsWithParams from "./custom/unboundedResultSets/ScenarioUnboundedResultSetsWithParams"
 import {Divider} from '@mui/material';
+import RestartServices from "../RestartServices"
 
 function Scenarios() {
     return (
             <div>
-                <h1 className="fw-bold">Szenarien</h1>
+                <div className="mt-2">
+                    <RestartServices></RestartServices>
+                </div>
+                <h1 className="fw-bold mt-3">Szenarien</h1>
                 <div className="mt-3">
                     <h3>Unbalanced Capacities</h3>
                     <ul className="list-unstyled mt-3">
