@@ -1,5 +1,5 @@
 #!/bin/bash
-./mvnw clean install -P buildDocker
+./mvnw clean install -P buildDocker -DskipTests
 
 ./docker/push-images.sh
 

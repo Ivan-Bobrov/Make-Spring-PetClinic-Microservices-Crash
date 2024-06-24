@@ -41,6 +41,7 @@ import java.util.List;
 @Timed("petclinic.pet")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 class PetResource {
 
     private final PetFileRepository petFileRepository;
