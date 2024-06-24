@@ -44,12 +44,7 @@ public class PetRecordResource {
     private PetRecord tryLock(Integer petId, Integer vetId) {
         PetRecord record = petRecordRepository.findByPetId(petId).orElseThrow(() -> new ResourceNotFoundException("PetRecord " + petId + " not found"));
         if ((record.isLocked() && !record.getLockedBy().equals(vetId)) && record.getLastAccess().after(new Date(System.currentTimeMillis() - EXPIRATION_TIME))) {
-            try {
-                Thread.sleep(5000);
-                tryLock(petId, vetId);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            throw new ResourceLockedException("PetRecord " + petId + " is currently being edited by another user. Please try again later.");
         }
         record.setLocked(true);
         record.setLockedBy(vetId);
