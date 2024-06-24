@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class PetRecordResource {
     private final PetRecordRepository petRecordRepository;
-    private final long EXPIRATION_TIME = 1800000;
+    private final long EXPIRATION_TIME = 180000;
     private final PetRecordEntityMapper petRecordEntityMapper;
 
     @GetMapping
