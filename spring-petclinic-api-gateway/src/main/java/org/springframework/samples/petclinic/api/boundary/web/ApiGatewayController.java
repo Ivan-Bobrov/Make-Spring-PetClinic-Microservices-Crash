@@ -49,33 +49,23 @@ public class ApiGatewayController {
 
     private final ReactiveCircuitBreakerFactory cbFactory;
 
-    @GetMapping(value = "/courses/{courseId}")
-    public Mono<CourseDetails> getCourseDetails(final @PathVariable int courseId) {
-        return customersServiceClient.getCourse(courseId)
-            .flatMap(course ->
-                vetServiceClient.getInstructor(course.getInstructorId())
-                    .map(addInstructorToCourse(course))
-            );
-    }
-
-    // FIX WITH CIRCUITBREAKER
-//  @GetMapping(value = "/courses/{courseId}")
-//  public Mono<CourseDetails> getCourseDetails(final @PathVariable int courseId) {
-//      return customersServiceClient.getCourse(courseId)
-//          .flatMap(course ->
-//              vetServiceClient.getInstructor(course.getInstructorId())
-//                  .transform(it -> {
-//                      ReactiveCircuitBreaker cb = cbFactory.create("getCourseDetails");
-//                      return cb.run(it, throwable -> emptyInstructor(throwable));
-//           //       })
-//                  .map(addInstructorToCourse(course))
-//          );
-//  }
+  @GetMapping(value = "/courses/{courseId}")
+  public Mono<CourseDetails> getCourseDetails(final @PathVariable int courseId) {
+      return customersServiceClient.getCourse(courseId)
+          .flatMap(course ->
+              vetServiceClient.getInstructor(course.getInstructorId())
+                  .transform(it -> {
+                      ReactiveCircuitBreaker cb = cbFactory.create("getCourseDetails");
+                      return cb.run(it, throwable -> emptyInstructor(throwable));
+                  })
+                  .map(addInstructorToCourse(course))
+          );
+  }
 
 
-    //   private Mono<InstructorDetails> emptyInstructor(Throwable throwable) {
-    //       return Mono.just(new InstructorDetails());
-    //   }
+       private Mono<InstructorDetails> emptyInstructor(Throwable throwable) {
+           return Mono.just(new InstructorDetails());
+       }
 
     private Function<InstructorDetails, CourseDetails> addInstructorToCourse(CourseDetails course) {
         return instructor -> {
