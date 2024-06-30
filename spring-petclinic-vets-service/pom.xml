@@ -48,6 +48,25 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Logback dependencies -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+
+        <!-- SLF4J binding for Logback -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+
         <!-- Spring Cloud-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
