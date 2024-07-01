@@ -28,10 +28,6 @@ restart_service() {
     echo ${password} | sudo -S docker-compose -f ${file} pull
     echo ${password} | sudo -S docker-compose -f ${file} up -d
 
-    if [${SERVER_IP2} == ${server_ip}]; then
-          echo ${password} | sudo -S ./scripts/chaos/call_chaos.sh vets attacks_enable_latency watcher_enable_restcontroller
-        fi
-
 EOF
 }
 

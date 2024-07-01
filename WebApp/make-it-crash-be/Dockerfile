@@ -15,8 +15,12 @@ RUN apt-get install sshpass
 WORKDIR /app
 
 COPY ./restart.sh /app
+COPY ./start-monkey.sh /app
+COPY ./stop-monkey.sh /app
 
 RUN chmod +x /app/restart.sh
+RUN chmod +x /app/start-monkey.sh
+RUN chmod +x /app/stop-monkey.sh
 
 COPY --from=build /app/target/*.jar app.jar
 

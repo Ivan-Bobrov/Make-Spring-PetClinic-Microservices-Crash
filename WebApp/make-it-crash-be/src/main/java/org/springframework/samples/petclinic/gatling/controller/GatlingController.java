@@ -46,6 +46,28 @@ public class GatlingController {
         }
     }
 
+    @GetMapping("/monkey/start")
+    public String startMonkey() {
+        try {
+            Runtime.getRuntime().exec("./start-monkey.sh");
+            return "Monkey started.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error starting monkey.";
+        }
+    }
+
+    @GetMapping("/monkey/stop")
+    public String stopMonkey() {
+        try {
+            Runtime.getRuntime().exec("./stop-monkey.sh");
+            return "Monkey stopped.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error stopping monkey.";
+        }
+    }
+
     @GetMapping(
         value = "/loadtest/vets",
         produces = "application/json"
