@@ -50,3 +50,11 @@ ALTER TABLE pets ADD CONSTRAINT fk_pets_types FOREIGN KEY (type_id) REFERENCES t
 ALTER TABLE files ADD CONSTRAINT fk_files_pet FOREIGN KEY (pet_id) REFERENCES pets (id);
 ALTER TABLE pet_records ADD CONSTRAINT fk_pet_records_pet FOREIGN KEY (pet_id) REFERENCES pets (id);
 CREATE INDEX pets_name ON pets (name);
+
+CREATE TABLE courses (
+    id          INTEGER IDENTITY PRIMARY KEY,
+    name        VARCHAR(256) NOT NULL,
+    description CLOB NOT NULL,
+    instructor  INTEGER NOT NULL
+);
+CREATE INDEX course_name ON courses (name);

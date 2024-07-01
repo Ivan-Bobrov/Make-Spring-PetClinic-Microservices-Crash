@@ -1,5 +1,5 @@
 {
     "latencyActive": true,
-    "latencyRangeStart" : 1000,
-    "latencyRangeEnd" : 10000
+    "latencyRangeStart" : 5000,
+    "latencyRangeEnd" : 15000
 }

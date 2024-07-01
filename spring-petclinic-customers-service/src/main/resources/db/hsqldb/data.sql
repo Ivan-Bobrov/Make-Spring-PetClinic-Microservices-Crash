@@ -43,3 +43,7 @@ INSERT INTO pet_records VALUES (10, 'Good boy', {ts '2024-01-01 00:00:00.00'}, f
 INSERT INTO pet_records VALUES (11, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 11);
 INSERT INTO pet_records VALUES (12, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 12);
 INSERT INTO pet_records VALUES (13, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 13);
+
+INSERT INTO courses VALUES(1, 'Erste Hilfe beim Hund', 'Lernen Sie die grundlegenden Erste-Hilfe-Techniken für Hunde. Der Kurs umfasst die Behandlung von Wunden, das Erkennen von Vergiftungen und das richtige Verhalten in Notfällen.', 4);
+INSERT INTO courses VALUES(2, 'Katzenverhalten verstehen', 'Dieser Kurs hilft Ihnen, das Verhalten Ihrer Katze besser zu verstehen. Themen sind Kommunikation, Spielverhalten und wie man unerwünschtes Verhalten korrigiert.', 5);
+INSERT INTO courses VALUES(3, 'Gesundheitsvorsorge für Haustiere', 'Erfahren Sie, wie Sie die Gesundheit Ihres Haustiers durch regelmäßige Vorsorgeuntersuchungen und Impfungen schützen können. Der Kurs umfasst auch Parasitenbekämpfung und Zahngesundheit.', 3);
