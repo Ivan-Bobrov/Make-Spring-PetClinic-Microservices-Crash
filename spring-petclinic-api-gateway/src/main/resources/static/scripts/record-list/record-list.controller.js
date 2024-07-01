@@ -19,7 +19,5 @@ angular.module('recordList')
             }
 
             $state.go('petRecord', { petId: petId, vetId: vetId });
-
-            // TODO: Implement additional logic if needed
         };
     }]);

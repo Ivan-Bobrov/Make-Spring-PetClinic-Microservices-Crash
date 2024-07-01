@@ -9,7 +9,6 @@ import org.springframework.samples.petclinic.customers.web.mapper.PetRecordEntit
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 
 @RequestMapping("/pet-records")
 @RestController
@@ -19,12 +18,6 @@ public class PetRecordResource {
     private final PetRecordRepository petRecordRepository;
     private final long EXPIRATION_TIME = 180000;
     private final PetRecordEntityMapper petRecordEntityMapper;
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<PetRecord> getAllPetRecords() {
-        return petRecordRepository.findAll();
-    }
 
     @GetMapping(value = "/{petId}")
     @ResponseStatus(HttpStatus.OK)
@@ -37,7 +30,7 @@ public class PetRecordResource {
     public void updatePetRecord(@PathVariable int petId, @RequestParam int vetId, @RequestBody PetRecordRequest petRecordRequest) {
         PetRecord recordModel = tryLock(petId, vetId);
         petRecordEntityMapper.map(recordModel, petRecordRequest);
-        log.info("Saving owner {}", recordModel);
+        log.info("Saving pet record {}", recordModel);
         petRecordRepository.save(recordModel);
     }
 
@@ -48,7 +41,7 @@ public class PetRecordResource {
                 Thread.sleep(5000);
                 tryLock(petId, vetId);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.info(e.getMessage());
             }
         }
         record.setLocked(true);
