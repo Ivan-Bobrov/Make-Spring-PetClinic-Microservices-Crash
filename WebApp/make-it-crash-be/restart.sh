@@ -22,9 +22,7 @@ restart_service() {
   local password=$4
   local file=$5
 
-  ssh ${server_user}@${server_ip} << EOF
-  expect "password:"
-  send "${password}\r"
+  sshpass -p "${password}" ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} << EOF
     cd ${target_dir}
     echo ${password} | sudo -S docker-compose -f ${file} down
     echo ${password} | sudo -S docker-compose -f ${file} pull
