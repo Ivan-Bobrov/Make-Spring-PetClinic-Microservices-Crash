@@ -10,6 +10,7 @@ angular.module('vetDetails')
         });
 
         $http.get('api/gateway/vets/' + $stateParams.vetId).then(function (resp) {
+
             self.vet = resp.data;
         });
 
@@ -40,6 +41,7 @@ angular.module('vetDetails')
 
             req = $http.post("api/vet/vets/" + vetId + "/sub", substitute);
             req.then(function () {
+
                 $state.go('vets');
             });
         }

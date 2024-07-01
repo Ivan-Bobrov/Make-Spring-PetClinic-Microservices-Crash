@@ -1,6 +1,8 @@
 DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
+DROP TABLE files IF EXISTS;
+DROP TABLE pet_records IF EXISTS;
 
 CREATE TABLE types (
   id   INTEGER IDENTITY PRIMARY KEY,
@@ -34,7 +36,17 @@ CREATE TABLE files (
   pet_id    INTEGER NOT NULL
 );
 
+CREATE TABLE pet_records (
+    id INTEGER IDENTITY PRIMARY KEY,
+    description VARCHAR(250),
+    last_access TIMESTAMP,
+    locked BOOLEAN,
+    locked_by INT,
+    pet_id INTEGER NOT NULL
+);
+
 ALTER TABLE pets ADD CONSTRAINT fk_pets_owners FOREIGN KEY (owner_id) REFERENCES owners (id);
 ALTER TABLE pets ADD CONSTRAINT fk_pets_types FOREIGN KEY (type_id) REFERENCES types (id);
 ALTER TABLE files ADD CONSTRAINT fk_files_pet FOREIGN KEY (pet_id) REFERENCES pets (id);
+ALTER TABLE pet_records ADD CONSTRAINT fk_pet_records_pet FOREIGN KEY (pet_id) REFERENCES pets (id);
 CREATE INDEX pets_name ON pets (name);
