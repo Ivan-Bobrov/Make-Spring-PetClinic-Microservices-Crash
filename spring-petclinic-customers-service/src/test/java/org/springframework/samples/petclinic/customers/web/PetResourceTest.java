@@ -35,6 +35,9 @@ class PetResourceTest {
     PetFileRepository petFileRepository;
 
     @MockBean
+    PetFileRepository petFileRepository;
+
+    @MockBean
     PetRepository petRepository;
 
     @MockBean

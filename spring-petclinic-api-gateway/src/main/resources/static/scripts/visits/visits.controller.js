@@ -18,6 +18,7 @@ angular.module('visits')
         });
 
         self.submit = function () {
+            let subtext = "";
             $http.get('api/vet/vets/' + self.selectedVetId + '/chose').then(function (resp) {
                     var availableVet = resp.data;
                     console.log("DEBUG: availableVet= "+ availableVet)
@@ -30,14 +31,16 @@ angular.module('visits')
                         description: self.desc,
                         vetId: availableVet
                     };
-                    if(self.selectedVetId !== data.vetId){
-                        alert("Originally requested vet is not available, substitute was booked instead.")
+                    if(self.selectedVetId != data.vetId){
+                        let firstname = self.vetList[availableVet-1].firstName;
+                        let lastname = self.vetList[availableVet-1].lastName;
+                        subtext = "\n\nOriginally requested vet was not available, substitute (" + firstname + " " + lastname + ") was booked instead.";
                     }
                     console.log("DEBUG: data= "+ data)
                     $http.post(url, data).then(function () {
                         $state.go('ownerDetails', {ownerId: $stateParams.ownerId});
                     });
-                    alert("Visit added")
+                    alert("Visit added " + subtext)
                 }
             );
         };
