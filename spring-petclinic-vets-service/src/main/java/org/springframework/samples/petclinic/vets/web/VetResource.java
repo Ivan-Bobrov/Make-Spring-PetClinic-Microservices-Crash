@@ -35,6 +35,7 @@ import java.util.Optional;
  */
 @RequestMapping("/vets")
 @RestController
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @CrossOrigin(
     origins = "*",

@@ -1,0 +1,21 @@
+<div ng-app="petRecord" ng-controller="PetRecordController as $ctrl" xmlns="http://www.w3.org/1999/html">
+    <p ng-show="loading">Loading...</p>
+    <div ng-show="!loading">
+        <h2>Medical Record</h2>
+        <p>Pet Id: {{ $ctrl.record.pet.id }}</p>
+        <p>Pet Name: {{ $ctrl.record.pet.name }}</p>
+        <p>Pet Birthday: {{ $ctrl.record.pet.birthDate }}</p>
+        <p>Description: {{ $ctrl.record.description }}</p>
+        <form ng-submit="$ctrl.submitRecordForm()">
+            <div class="form-group">
+                <label>Change Description: </label>
+                <input type="text" ng-model="$ctrl.description" value="{{$ctrl.record.description}}"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+
+</div>

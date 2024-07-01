@@ -65,6 +65,11 @@ class PetResource {
         return petRepository.findPetTypes();
     }
 
+    @GetMapping("/pets")
+    public List<Pet> getPets() {
+        return petRepository.findAll();
+    }
+
     @PostMapping("/owners/{ownerId}/pets")
     @ResponseStatus(HttpStatus.CREATED)
     public Pet processCreationForm(

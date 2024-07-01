@@ -29,3 +29,17 @@ INSERT INTO pets VALUES (10, 'Mulligan', '2007-02-24', 2, 8);
 INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 5, 9);
 INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 2, 10);
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 1, 10);
+
+INSERT INTO pet_records VALUES (1, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 1);
+INSERT INTO pet_records VALUES (2, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 2);
+INSERT INTO pet_records VALUES (3, 'Good girl', {ts '2024-01-01 00:00:00.00'}, false, -1, 3);
+INSERT INTO pet_records VALUES (4, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 4);
+INSERT INTO pet_records VALUES (5, 'Good girl', {ts '2024-01-01 00:00:00.00'}, false, -1, 5);
+INSERT INTO pet_records VALUES (6, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 6);
+INSERT INTO pet_records VALUES (7, 'Good girl', {ts '2024-01-01 00:00:00.00'}, false, -1, 7);
+INSERT INTO pet_records VALUES (8, 'Good girl', {ts '2024-01-01 00:00:00.00'}, false, -1, 8);
+INSERT INTO pet_records VALUES (9, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 9);
+INSERT INTO pet_records VALUES (10, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 10);
+INSERT INTO pet_records VALUES (11, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 11);
+INSERT INTO pet_records VALUES (12, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 12);
+INSERT INTO pet_records VALUES (13, 'Good boy', {ts '2024-01-01 00:00:00.00'}, false, -1, 13);

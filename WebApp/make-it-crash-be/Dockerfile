@@ -8,6 +8,10 @@ RUN ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:17
 
+RUN apt-get update && apt-get install -y openssh-server
+
+RUN apt-get install sshpass
+
 WORKDIR /app
 
 COPY ./restart.sh /app

@@ -1,0 +1,35 @@
+<h2>Pet Medical Records</h2>
+
+<form onsubmit="javascript:void(0)" style="max-width: 20em; margin-top: 2em;">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search Filter" ng-model="$ctrl.query" />
+    </div>
+    <div class="form-group">
+        <select class="form-control" ng-model="$ctrl.selectedVet">
+            <option value="" disabled selected>Select Vet</option>
+            <option ng-repeat="vet in $ctrl.vetList" value="{{vet.id}}">{{vet.firstName}} {{vet.lastName}}</option>
+        </select>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Birthday</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="pet in $ctrl.petList | filter:$ctrl.query track by pet.id">
+        <td>
+            <a ng-click="$ctrl.LockRecord(pet.id, $ctrl.selectedVet)" ui-sref="petRecord({petId: pet.id, vetId: $ctrl.selectedVet})">
+                {{pet.name}}
+            </a>
+        </td>
+        <td>{{pet.type.name}}</td>
+        <td>{{pet.birthDate}}</td>
+    </tr>
+    </tbody>
+</table>
