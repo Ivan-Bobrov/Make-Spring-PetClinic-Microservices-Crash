@@ -130,14 +130,14 @@ class VetResource {
         return vet.getSubstitute();
     }
 
-    @PostMapping("/init")
-    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.POST, RequestMethod.OPTIONS})
+    @GetMapping("/init")
+    @CrossOrigin(origins = "*")
     public void initDatabase(@RequestParam(value = "inserts", defaultValue = "50000") int inserts) {
         databaseDataInitializer.init(inserts);
     }
 
-    @DeleteMapping("/delete")
-    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.DELETE, RequestMethod.OPTIONS})
+    @GetMapping("/delete")
+    @CrossOrigin(origins = "*")
     public void deleteVetsWithIdGreaterThanSix() {
         vetRepository.deleteVetsWithIdGreaterThanSix();
     }
