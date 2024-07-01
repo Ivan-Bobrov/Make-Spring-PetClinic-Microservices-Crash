@@ -21,6 +21,8 @@ import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFac
 import org.springframework.samples.petclinic.api.application.CustomersServiceClient;
 import org.springframework.samples.petclinic.api.application.VetServiceClient;
 import org.springframework.samples.petclinic.api.application.VisitsServiceClient;
+import org.springframework.samples.petclinic.api.dto.CourseDetails;
+import org.springframework.samples.petclinic.api.dto.InstructorDetails;
 import org.springframework.samples.petclinic.api.dto.OwnerDetails;
 import org.springframework.samples.petclinic.api.dto.VetDetails;
 import org.springframework.samples.petclinic.api.dto.Visits;
@@ -46,6 +48,31 @@ public class ApiGatewayController {
     private final VetServiceClient vetServiceClient;
 
     private final ReactiveCircuitBreakerFactory cbFactory;
+
+  @GetMapping(value = "/courses/{courseId}")
+  public Mono<CourseDetails> getCourseDetails(final @PathVariable int courseId) {
+      return customersServiceClient.getCourse(courseId)
+          .flatMap(course ->
+              vetServiceClient.getInstructor(course.getInstructorId())
+                  .transform(it -> {
+                      ReactiveCircuitBreaker cb = cbFactory.create("getCourseDetails");
+                      return cb.run(it, throwable -> emptyInstructor(throwable));
+                  })
+                  .map(addInstructorToCourse(course))
+          );
+  }
+
+
+       private Mono<InstructorDetails> emptyInstructor(Throwable throwable) {
+           return Mono.just(new InstructorDetails());
+       }
+
+    private Function<InstructorDetails, CourseDetails> addInstructorToCourse(CourseDetails course) {
+        return instructor -> {
+            course.setInstructorDetails(instructor);
+            return course;
+        };
+    }
 
     @GetMapping(value = "owners/{ownerId}")
     public Mono<OwnerDetails> getOwnerDetails(final @PathVariable int ownerId) {

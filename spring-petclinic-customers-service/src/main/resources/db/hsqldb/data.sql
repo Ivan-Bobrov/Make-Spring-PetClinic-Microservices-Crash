@@ -29,3 +29,7 @@ INSERT INTO pets VALUES (10, 'Mulligan', '2007-02-24', 2, 8);
 INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 5, 9);
 INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 2, 10);
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 1, 10);
+
+INSERT INTO courses VALUES(1, 'Erste Hilfe beim Hund', 'Lernen Sie die grundlegenden Erste-Hilfe-Techniken für Hunde. Der Kurs umfasst die Behandlung von Wunden, das Erkennen von Vergiftungen und das richtige Verhalten in Notfällen.', 4);
+INSERT INTO courses VALUES(2, 'Katzenverhalten verstehen', 'Dieser Kurs hilft Ihnen, das Verhalten Ihrer Katze besser zu verstehen. Themen sind Kommunikation, Spielverhalten und wie man unerwünschtes Verhalten korrigiert.', 5);
+INSERT INTO courses VALUES(3, 'Gesundheitsvorsorge für Haustiere', 'Erfahren Sie, wie Sie die Gesundheit Ihres Haustiers durch regelmäßige Vorsorgeuntersuchungen und Impfungen schützen können. Der Kurs umfasst auch Parasitenbekämpfung und Zahngesundheit.', 3);
