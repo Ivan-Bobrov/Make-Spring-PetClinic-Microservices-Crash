@@ -8,7 +8,7 @@ RUN ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:17
 
-RUN sudo apt-get install openssh-server
+RUN apt-get update && apt-get install -y openssh-server
 
 WORKDIR /app
 
