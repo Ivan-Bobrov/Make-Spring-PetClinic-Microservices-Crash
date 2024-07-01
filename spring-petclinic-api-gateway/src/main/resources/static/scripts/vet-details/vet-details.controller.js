@@ -7,6 +7,12 @@ angular.module('vetDetails')
 
         $http.get('api/vet/vets').then(function (resp) {
             self.vetList = resp.data;
+            for(var i=0; i < self.vetList.length; i++){
+                if(self.vetList[i].id == $stateParams.vetId){
+                    self.vetList.splice(i, 1);
+                    //break;
+                }
+            }
         });
 
         $http.get('api/gateway/vets/' + $stateParams.vetId).then(function (resp) {

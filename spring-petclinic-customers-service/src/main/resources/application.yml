@@ -5,15 +5,15 @@ spring:
     import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
   servlet:
     multipart:
-      max-file-size: 1000GB
-      max-request-size: 1000GB
+      max-file-size: 5MB
+      max-request-size: 5MB
 server:
   tomcat:
-    max-http-form-post-size: 1000GB
+    max-http-form-post-size: 5MB
   jetty:
-    max-http-form-post-size: 1000GB
+    max-http-form-post-size: 5MB
   undertow:
-    max-http-post-size: 1000GB
+    max-http-post-size: 5MB
 
 database:
   initialize: false
@@ -27,15 +27,15 @@ spring:
     import: configserver:http://config-server:8888
   servlet:
     multipart:
-      max-file-size: 0 #undefined max file size
-      max-request-size: 0 #undefined max request size
+      max-file-size: 5MB
+      max-request-size: 5MB
 server:
   tomcat:
-    max-http-form-post-size: 1000GB
+    max-http-form-post-size: 5MB
   jetty:
-    max-http-form-post-size: 1000GB
+    max-http-form-post-size: 5MB
   undertow:
-    max-http-post-size: 1000GB
+    max-http-post-size: 5MB
 
 database:
   initialize: false
@@ -49,3 +49,14 @@ spring:
 
 database:
   initialize: false
+
+---
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false  # Disable console logging, we'll capture it with the logger
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # For binding parameters
