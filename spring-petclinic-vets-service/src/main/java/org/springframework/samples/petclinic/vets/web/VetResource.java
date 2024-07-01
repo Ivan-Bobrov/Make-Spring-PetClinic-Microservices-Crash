@@ -39,8 +39,20 @@ import org.springframework.web.bind.annotation.*;
  */
 @RequestMapping("/vets")
 @RestController
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@CrossOrigin(
+    origins = "*",
+    allowedHeaders = "*",
+    methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.OPTIONS,
+        RequestMethod.HEAD,
+        RequestMethod.PATCH,
+        RequestMethod.TRACE
+    })
 class VetResource {
 
     private final VetRepository vetRepository;
@@ -122,12 +134,14 @@ class VetResource {
         return vet.getSubstitute();
     }
 
-    @PostMapping("/init")
+    @GetMapping("/init")
+    @CrossOrigin(origins = "*")
     public void initDatabase(@RequestParam(value = "inserts", defaultValue = "50000") int inserts) {
         databaseDataInitializer.init(inserts);
     }
 
-    @DeleteMapping("/delete")
+    @GetMapping("/delete")
+    @CrossOrigin(origins = "*")
     public void deleteVetsWithIdGreaterThanSix() {
         vetRepository.deleteVetsWithIdGreaterThanSix();
     }

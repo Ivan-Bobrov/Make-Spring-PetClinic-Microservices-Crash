@@ -41,7 +41,19 @@ import java.util.List;
 @Timed("petclinic.pet")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
+@CrossOrigin(
+    origins = "*",
+    allowedHeaders = "*",
+    methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.OPTIONS,
+        RequestMethod.HEAD,
+        RequestMethod.PATCH,
+        RequestMethod.TRACE
+    })
 class PetResource {
 
     private final PetFileRepository petFileRepository;
@@ -51,6 +63,11 @@ class PetResource {
     @GetMapping("/petTypes")
     public List<PetType> getPetTypes() {
         return petRepository.findPetTypes();
+    }
+
+    @GetMapping("/pets")
+    public List<Pet> getPets() {
+        return petRepository.findAll();
     }
 
     @PostMapping("/owners/{ownerId}/pets")

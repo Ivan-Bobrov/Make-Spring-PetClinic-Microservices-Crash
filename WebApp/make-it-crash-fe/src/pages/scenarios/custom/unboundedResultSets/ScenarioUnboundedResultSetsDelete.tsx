@@ -14,7 +14,7 @@ function ScenarioUnboundedResultSetsDelete({ title, text, path }: { title: strin
         setShowSpinner(true);
 
         axios
-            .delete(`${path}/delete`, {
+            .get(`${path}/delete`, {
                 baseURL: process.env.API_GW_URL,
                 responseType: 'json',
                 headers: { 'content-type': 'application/json' },

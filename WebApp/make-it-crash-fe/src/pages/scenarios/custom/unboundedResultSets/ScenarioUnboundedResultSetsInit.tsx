@@ -14,10 +14,8 @@ function ScenarioUnboundedResultSetsInit({ title, text, path, inserts }: { title
         setShowSpinner(true);
 
         axios
-            .post(`${process.env.API_GW_URL}${path}/init?inserts=${inserts}`, {
+            .get(`${process.env.API_GW_URL}${path}/init?inserts=${inserts}`, {
                 params: { inserts },
-                // responseType: 'json',
-                // headers: { 'content-type': 'application/json' },
             })
             .then((response) => {
                 setShowSpinner(false);

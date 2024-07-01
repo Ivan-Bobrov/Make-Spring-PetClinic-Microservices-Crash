@@ -92,7 +92,7 @@ function Scenario({ title, text, path, duration, users }: { title: string, text:
                                 </Box>
                             }
 
-                    {mockValueReturned && <Alert className="mt-3" severity="info">Mock value returned</Alert>}
+                    {mockValueReturned && <Alert className="mt-3" severity="info">Dies sind Mock Werte. Der eigentliche Aufruf ist fehlgeschlagen.</Alert>}
                     <div className="mt-3">
                         {data && <GatlingDataDisplay data={data} />}
                     </div>

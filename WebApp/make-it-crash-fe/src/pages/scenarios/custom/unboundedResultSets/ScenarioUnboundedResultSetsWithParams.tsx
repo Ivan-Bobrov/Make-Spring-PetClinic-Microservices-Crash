@@ -39,7 +39,7 @@ const ScenarioUnboundedResultSetsWithParams = ({ title, text, path }) => {
         }
 
         axios
-            .post(`${process.env.API_GW_URL}${path}/init?inserts=${inserts}`, {
+            .get(`${process.env.API_GW_URL}${path}/init?inserts=${inserts}`, {
                 responseType: 'json',
                 headers: { 'content-type': 'application/json' },
             })

@@ -13,8 +13,8 @@ import static io.gatling.javaapi.http.HttpDsl.http;
  */
 public class VetsLoadTest extends Simulation {
 
-    int users = 100;
-    int time = 15;
+    int users = 80;
+    int time = 30;
     HttpProtocolBuilder httpProtocol = http.baseUrl("http://localhost:8080")
         .acceptHeader("application/json")
         .contentTypeHeader("application/json");

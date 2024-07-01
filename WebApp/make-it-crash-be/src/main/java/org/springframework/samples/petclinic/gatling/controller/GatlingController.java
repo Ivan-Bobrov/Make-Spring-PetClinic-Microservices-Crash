@@ -35,6 +35,26 @@ public class GatlingController {
         return gatewayUrl;
     }
 
+    @GetMapping("/monkey/active")
+    public String active() {
+        String requestURL = "http://141.22.89.147:8083/actuator/chaosmonkey";
+        try {
+            Process process = Runtime.getRuntime().exec("curl " + requestURL);
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            process.waitFor();
+            process.getInputStream().transferTo(output);
+            String result = output.toString();
+            if (result.contains("\"latencyActive\":false") && result.contains("\"restController\":false")){
+                return "false";
+            } else {
+                return "true";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error checking monkey status.";
+        }
+    }
+
     @GetMapping("/restart")
     public String restart() {
         try {
@@ -43,6 +63,28 @@ public class GatlingController {
         } catch (Exception e) {
             e.printStackTrace();
             return "Error restarting application.";
+        }
+    }
+
+    @GetMapping("/monkey/start")
+    public String startMonkey() {
+        try {
+            Runtime.getRuntime().exec("./start-monkey.sh");
+            return "Monkey started.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error starting monkey.";
+        }
+    }
+
+    @GetMapping("/monkey/stop")
+    public String stopMonkey() {
+        try {
+            Runtime.getRuntime().exec("./stop-monkey.sh");
+            return "Monkey stopped.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error stopping monkey.";
         }
     }
 

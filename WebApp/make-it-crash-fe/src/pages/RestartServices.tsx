@@ -4,7 +4,7 @@ import { Button, Alert } from '@mui/material';
 
 function RestartServices() {
     const [data, setData] = useState(null);
-    
+
     const restartServices = () => {
         axios
             .get('/restart', {
@@ -19,12 +19,27 @@ function RestartServices() {
             });
     };
 
+    const getCurrentTimePlusMinutes = (minutes) => {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + minutes);
+        const hours = now.getHours().toString().padStart(2, '0');
+        const mins = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${mins}`;
+    };
+
     return (
         <div>
             <h1 className="fw-bold">Anwendung neu starten</h1>
             <h5>Starte alle Services neu!</h5>
             <Button className="mt-2" variant="contained" onClick={restartServices}>neu starten!</Button>
-            {data && <Alert severity="success" className="mt-2"><p>Der Neustart wurde getriggert, dies kann eine Weile dauern.</p><p><strong>Schaue selbst, wann die Anwendung wieder verfügbar ist.</strong></p></Alert>}
+            {data &&
+                <Alert severity="success" className="mt-2">
+                    <div className="d-flex flex-column align-items-start">
+                        <p className="mb-2">Der Neustart wurde getriggert, dies kann eine Weile dauern (ca. 3-5 Minuten).</p>
+                        <p className="mb-3"><strong>Schaue selbst, wann die Anwendung wieder verfügbar ist.</strong></p>
+                        <p className="mb-2">Geschätzte Zeit: {getCurrentTimePlusMinutes(4)}</p>
+                    </div>
+                </Alert>}
         </div>
     );
 }
