@@ -44,7 +44,6 @@ import java.util.List;
 @CrossOrigin(
     origins = "*",
     allowedHeaders = "*",
-    allowCredentials = "*",
     methods = {
         RequestMethod.GET,
         RequestMethod.POST,

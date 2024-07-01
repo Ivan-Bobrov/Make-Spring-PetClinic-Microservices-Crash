@@ -39,7 +39,6 @@ import java.util.stream.Collectors;
 @CrossOrigin(
     origins = "*",
     allowedHeaders = "*",
-    allowCredentials = "*",
     methods = {
         RequestMethod.GET,
         RequestMethod.POST,

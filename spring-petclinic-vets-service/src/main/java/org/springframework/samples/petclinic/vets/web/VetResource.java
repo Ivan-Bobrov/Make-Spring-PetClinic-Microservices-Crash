@@ -39,7 +39,6 @@ import java.util.Optional;
 @CrossOrigin(
     origins = "*",
     allowedHeaders = "*",
-    allowCredentials = "*",
     methods = {
         RequestMethod.GET,
         RequestMethod.POST,
