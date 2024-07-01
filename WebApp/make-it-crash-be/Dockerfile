@@ -8,6 +8,8 @@ RUN ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:17
 
+RUN sudo apt-get install openssh-server
+
 WORKDIR /app
 
 COPY ./restart.sh /app
