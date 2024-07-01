@@ -3,6 +3,8 @@ spring:
     name: vets-service
   config:
     import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
+  profiles:
+    active: chaos-monkey
 
 database:
   initialize: false

@@ -34,7 +34,7 @@ services:
     container_name: vets-service
     environment:
       - HOST=141.22.10.82
-      - SPRING_PROFILES_ACTIVE=vm
+      - SPRING_PROFILES_ACTIVE=vm, chaos-monkey
     deploy:
       resources:
         limits:
