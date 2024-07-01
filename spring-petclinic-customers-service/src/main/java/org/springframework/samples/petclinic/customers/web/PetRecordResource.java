@@ -29,28 +29,28 @@ public class PetRecordResource {
     @GetMapping(value = "/{petId}")
     @ResponseStatus(HttpStatus.OK)
     public PetRecord getPetRecord(@PathVariable int petId, @RequestParam int vetId) {
-        return tryLock(petId, vetId);
+        return petRecordRepository.findByPetId(petId).orElseThrow(() -> new ResourceNotFoundException("PetRecord " + petId + " not found"));
     }
 
     @PutMapping(value = "/{petId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updatePetRecord(@PathVariable int petId, @RequestParam int vetId, @RequestBody PetRecordRequest petRecordRequest) {
-        PetRecord recordModel = tryLock(petId, vetId);
+        PetRecord recordModel = petRecordRepository.findByPetId(petId).orElseThrow(() -> new ResourceNotFoundException("PetRecord " + petId + " not found"));
         petRecordEntityMapper.map(recordModel, petRecordRequest);
         log.info("Saving owner {}", recordModel);
         petRecordRepository.save(recordModel);
     }
 
-    private PetRecord tryLock(Integer petId, Integer vetId) {
-        PetRecord record = petRecordRepository.findByPetId(petId).orElseThrow(() -> new ResourceNotFoundException("PetRecord " + petId + " not found"));
-        if ((record.isLocked() && !record.getLockedBy().equals(vetId)) && record.getLastAccess().after(new Date(System.currentTimeMillis() - EXPIRATION_TIME))) {
-            throw new ResourceLockedException("PetRecord " + petId + " is currently being edited by another user. Please try again later.");
-        }
-        record.setLocked(true);
-        record.setLockedBy(vetId);
-        record.setLastAccess(new Date());
-        petRecordRepository.save(record);
-
-        return record;
-    }
+//    private PetRecord tryLock(Integer petId, Integer vetId) {
+//        PetRecord record = petRecordRepository.findByPetId(petId).orElseThrow(() -> new ResourceNotFoundException("PetRecord " + petId + " not found"));
+//        if ((record.isLocked() && !record.getLockedBy().equals(vetId)) && record.getLastAccess().after(new Date(System.currentTimeMillis() - EXPIRATION_TIME))) {
+//            throw new ResourceLockedException("PetRecord " + petId + " is currently being edited by another user. Please try again later.");
+//        }
+//        record.setLocked(true);
+//        record.setLockedBy(vetId);
+//        record.setLastAccess(new Date());
+//        petRecordRepository.save(record);
+//
+//        return record;
+//    }
 }
