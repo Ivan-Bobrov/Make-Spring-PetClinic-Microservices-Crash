@@ -104,13 +104,13 @@ class OwnerResource {
         ownerRepository.save(ownerModel);
     }
     @PostMapping("/init")
-    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = RequestMethod.POST)
+    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.POST, RequestMethod.OPTIONS})
     public void initDatabase(@RequestParam(value = "inserts", defaultValue = "50000") int inserts) {
         databaseDataInitializer.init(inserts);
     }
 
     @DeleteMapping("/delete")
-    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = RequestMethod.DELETE)
+    @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.DELETE, RequestMethod.OPTIONS})
     public void deleteOwnersWithIdGreaterThanTen() {
         ownerRepository.deleteOwnersWithIdGreaterThanTen();
     }
