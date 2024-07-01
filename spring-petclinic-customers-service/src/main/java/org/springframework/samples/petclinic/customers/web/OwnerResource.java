@@ -59,7 +59,6 @@ import java.util.Optional;
         RequestMethod.TRACE
     })
 @Slf4j
-@CrossOrigin(origins = "*")
 class OwnerResource {
 
     private final OwnerRepository ownerRepository;
