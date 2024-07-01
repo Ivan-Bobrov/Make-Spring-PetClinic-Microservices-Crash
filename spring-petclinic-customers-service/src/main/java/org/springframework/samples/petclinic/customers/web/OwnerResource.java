@@ -46,6 +46,7 @@ import java.util.Optional;
 @Timed("petclinic.owner")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 class OwnerResource {
 
     private final OwnerRepository ownerRepository;

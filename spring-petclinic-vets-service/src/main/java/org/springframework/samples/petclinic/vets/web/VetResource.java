@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RequestMapping("/vets")
 @RestController
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 class VetResource {
 
