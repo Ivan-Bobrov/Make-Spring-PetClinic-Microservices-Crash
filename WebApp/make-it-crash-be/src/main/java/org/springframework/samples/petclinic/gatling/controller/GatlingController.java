@@ -35,6 +35,26 @@ public class GatlingController {
         return gatewayUrl;
     }
 
+    @GetMapping("/monkey/active")
+    public String active() {
+        String requestURL = "http://141.22.89.147:8083/actuator/chaosmonkey";
+        try {
+            Process process = Runtime.getRuntime().exec("curl " + requestURL);
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            process.waitFor();
+            process.getInputStream().transferTo(output);
+            String result = output.toString();
+            if (result.contains("\"latencyActive\":false") && result.contains("\"restController\":false")){
+                return "false";
+            } else {
+                return "true";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error checking monkey status.";
+        }
+    }
+
     @GetMapping("/restart")
     public String restart() {
         try {
