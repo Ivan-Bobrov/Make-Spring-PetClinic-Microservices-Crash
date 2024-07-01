@@ -174,7 +174,7 @@ const ScenarioUnbalancedCapacitiesWithParams = ({ title, text }) => {
                         </div>
                     </form>
                     <div>
-                        {mockValueReturned && <Alert severity="info">Mock value returned</Alert>}
+                        {mockValueReturned && <Alert severity="info">Dies sind Mock Werte. Der eigentliche Aufruf ist fehlgeschlagen.</Alert>}
                         <div className="mt-3">
                             {data && <GatlingDataDisplay data={data} />}
                         </div>
